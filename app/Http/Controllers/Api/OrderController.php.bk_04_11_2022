@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderDelivery;
+use App\Models\WarehouseProduct;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class OrderController extends Controller
+{
+
+  public function index()
+  {
+    try {
+      $orders = Order::with(['delivery'])->get();
+
+      if (empty($orders))
+        return $this->setResponse(false, 'Orders not found', 404);
+
+      return $this->setResponse(true, $orders, 200);
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+
+
+  public function store(Request $request)
+  {
+    try {
+      $save = new Order();
+      $save->shokeeper_id     = Auth::user()->id;
+      $save->warehouse_id     = $request->warehouse_id;
+      $save->order_no         = rand(111111, 999999);
+      $save->order_date       = (int)strtotime($request->order_date);
+      $save->payment_type     = $request->payment_type;
+      $save->order_status     = $request->order_status;
+      $save->shipping_details = $request->shipping_details;
+      $save->billing_details  = $request->billing_details;
+      $save->products         = $request->products;
+      $save->order_total      = (int)$request->order_total;
+      if ($save->save())
+        return $this->setResponse(true, 'Order Created Successfully!', 200, 'm');
+
+      return $this->setResponse(false, 'No Record Found', 404);
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+
+  public function show($id)
+  {
+    try {
+      $order = Order::with(['delivery'])->find($id);
+
+      if (empty($order))
+        return $this->setResponse(false, 'Order not found', 404);
+
+      return $this->setResponse(true, $order, 200);
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+
+  public function changeStaus($id, $status)
+  {
+    try {
+      $order = Order::find($id);
+
+      if (empty($order))
+        return $this->setResponse(false, 'Order not found', 404);
+
+      $order->order_status = $status;
+      $order->save();
+
+      return $this->setResponse(true, 'Order status changed successfully', 200);
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+
+  public function startDelivery(Request $request)
+  {
+    try {
+      $order = Order::find($request->id);
+
+      if (empty($order))
+        return $this->setResponse(false, 'Order not found', 404);
+
+      if (!empty($request->product_id)) {
+        foreach ($request->product_id as $key => $p) {
+          $delivery = new OrderDelivery();
+          $delivery->order_id = $request->id;
+          $delivery->product_id = $request->product_id[$key];
+          $delivery->quantity = $request->quantity[$key];
+          $delivery->save();
+        }
+
+        return $this->setResponse(true, 'Delivery items saved successfully', 200);
+      }
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+
+  public function userOrders($id)
+  {
+    try {
+      $orders = Order::with('delivery')->where('shokeeper_id', $id)->get();
+
+      return $this->setResponse(true, $orders, 200);
+    } catch (Exception $e) {
+      return $this->setResponse(false, $e->getMessage(), 500);
+    }
+  }
+}
