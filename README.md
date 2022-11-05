@@ -62,3 +62,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+system terminal:- ssh -N -L 12109:127.0.0.1:12109 admin@101.53.145.8 -p 1906
+admin@101.53.145.8's password:- GN#Tpi*Y&&Kcsdkhcd2vHfp

@@ -5,11 +5,26 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDelivery;
+use App\Models\Po;
+use App\Models\Warehouse;
 use Exception;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+
+        $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->get();
+        $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->limit(10)->get();
+        $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->limit(10)->get();
+
+        // return json_encode($data);
+
+        return view('admin.order.index', $data);
+    }
+
     public function changeStatus(Request $request)
     {
         // return json_encode($request->all());

@@ -65,9 +65,9 @@ use App\Http\Controllers\Shopkeeper\DashboardController as ShopkeeperDashboard;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('optimize', function () {
+    return "Done";
+});
 // Auth::routes();
 
 Route::get('/', [Login::class, 'index'])->middleware('checkLogin');
@@ -121,6 +121,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 
     Route::post('orders/status', [AdminOrderController::class, 'changeStatus']);
     Route::post('orders', [AdminOrderController::class, 'startDelivery']);
+    Route::get('orders_list',[AdminOrderController::class,'index'])->name('order.index');
 });
 
 

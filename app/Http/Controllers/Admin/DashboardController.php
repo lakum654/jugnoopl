@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Po;
+use App\Models\Supplier;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +14,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $totalOrder = Order::count();
+        $totalWarehouse = Warehouse::count();
+        $totalPO = Po::count();
+        $totalSupplier = Supplier::count();
 
-        $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->get();
-        $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->limit(10)->get();
-        $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->limit(10)->get();
-
-        // return json_encode($data);
-
-        return view('admin.dashboard', $data);
+        return view('admin.dashboard', compact('totalOrder','totalWarehouse','totalPO','totalSupplier'));
     }
 
     public function orderDetail($id)

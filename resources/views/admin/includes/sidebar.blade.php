@@ -1,3 +1,12 @@
+<style>
+    .active {
+        color:blue !important;
+    }
+
+    .sub-menu .nav-item .nav-link .active{
+        color:blueviolet !important;
+    }
+</style>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
     <li class="nav-item nav-profile border-bottom">
@@ -37,39 +46,41 @@
       </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('admin/user') || Request::is('admin/user/*') ? 'active' : ''}}">
       <a class="nav-link" href="{{url('admin/user')}}">
         <i class="mdi mdi-account-multiple menu-icon"></i>
         <span class="menu-title">User</span>
       </a>
     </li>
 
-    <li class="nav-item">
+
+    <li class="nav-item {{ Request::is('admin/orders_list') || Request::is('admin/orders_list/*') ? 'active' : ''}}">
+        <a class="nav-link" href="{{ url('admin/orders_list') }}">
+          <i class="mdi mdi-square menu-icon"></i>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+
+    <li class="nav-item {{ Request::is('admin/shopkeeper') || Request::is('admin/shopkeeper/*') ? 'active' : ''}}">
       <a class="nav-link" href="{{url('admin/shopkeeper')}}">
         <i class="mdi mdi-account-network menu-icon"></i>
         <span class="menu-title">Shopkeeper</span>
       </a>
     </li>
 
-    <li class="nav-item">
-      <a class="nav-link {{ (url()->full() == url('admin/supplier'))? 'active':'inactive'}}" href="{{url('admin/supplier')}}">
+    <li class="nav-item {{ Request::is('admin/supplier') || Request::is('admin/supplier/*') ? 'active' : ''}}">
+      <a class="nav-link" href="{{url('admin/supplier')}}">
         <i class="mdi mdi-nature-people menu-icon"></i>
         <span class="menu-title">Supplier</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link {{ (url()->full() == url('admin/supplier-product'))? 'active':'inactive'}}" href="{{url('admin/supplier-product')}}">
+    <li class="nav-item {{ Request::is('admin/supplier-product') ? 'active' : ''}}">
+      <a class="nav-link" href="{{url('admin/supplier-product')}}">
         <i class="mdi mdi-playstation menu-icon"></i>
         <span class="menu-title">Supplier Product</span>
       </a>
     </li>
-<!--
-    <li class="nav-item">
-      <a class="nav-link" href="{{url('admin/warehouse')}}">
-        <i class="mdi mdi-store menu-icon"></i>
-        <span class="menu-title">Warehouse</span>
-      </a>
-    </li> -->
+
 
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
@@ -91,7 +102,7 @@
 
 
 
-    <li class="nav-item">
+    <li class="nav-item {{ Request::is('admin/product') || Request::is('admin/product/create') ? 'active' : ''}}">
       <a class="nav-link" href="{{ url('admin/product') }}">
         <i class="mdi mdi-buffer menu-icon"></i>
         <span class="menu-title">Product</span>
@@ -107,19 +118,19 @@
       <div class="collapse" id="ui-basic">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" href="{{url('admin/city')}}">City</a>
+            <a class="nav-link {{ Request::is('admin/city') || Request::is('admin/city/*') ? 'active' : ''}}" href="{{url('admin/city')}}">City</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/unit') }}">Unit</a>
+            <a class="nav-link {{ Request::is('admin/unit') || Request::is('admin/unit/*') ? 'active' : ''}}" href="{{ url('admin/unit') }}">Unit</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/brand') }}">Brand</a>
+            <a class="nav-link {{ Request::is('admin/brand') || Request::is('admin/brand/*') ? 'active' : ''}}" href="{{ url('admin/brand') }}">Brand</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/category') }}">Category</a>
+            <a class="nav-link {{ Request::is('admin/category') || Request::is('admin/category/*') ? 'active' : ''}}" href="{{ url('admin/category') }}">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/sub_category') }}">Sub Category</a>
+            <a class="nav-link {{ Request::is('admin/sub_category') || Request::is('admin/sub_category/*') ? 'active' : ''}}" href="{{ url('admin/sub_category') }}">Sub Category</a>
           </li>
         </ul>
       </div>
@@ -135,13 +146,13 @@
       <div class="collapse" id="ui-basic1">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/po/requested') }}">Requested PO</a>
+            <a class="nav-link {{ Request::is('admin/po/requested') || Request::is('admin/po/requested/*') ? 'active' : ''}}" href="{{ url('admin/po/requested') }}">Requested PO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/po/in-progress') }}">In Progress PO</a>
+            <a class="nav-link {{ Request::is('admin/po/in-progress') || Request::is('admin/po/in-progress/*') ? 'active' : ''}}" href="{{ url('admin/po/in-progress') }}">In Progress PO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/po/received') }}">Received PO</a>
+            <a class="nav-link {{ Request::is('admin/po/received') || Request::is('admin/po/received/*') ? 'active' : ''}}" href="{{ url('admin/po/received') }}">Received PO</a>
           </li>
         </ul>
       </div>

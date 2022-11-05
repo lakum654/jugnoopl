@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{ asset('assets')}}/vendors/jquery-bar-rating/css-stars.css" />
   <link rel="stylesheet" href="{{ asset('assets')}}/vendors/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->
@@ -27,7 +28,9 @@
 
   <link rel="stylesheet" href="{{ asset('assets')}}/css/custom.css" />
 
+  @yield('links')
 
+  @yield('css')
   <style>
     .badge {
       font-size: 12px !important;
@@ -132,3 +135,6 @@
       border-radius: 0px !important;
     }
   </style>
+
+
+@yield('js')
