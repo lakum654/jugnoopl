@@ -122,6 +122,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('orders/status', [AdminOrderController::class, 'changeStatus']);
     Route::post('orders', [AdminOrderController::class, 'startDelivery']);
     Route::get('orders_list',[AdminOrderController::class,'index'])->name('order.index');
+    Route::get('order/{id}/get_warehouse',[AdminOrderController::class,'getWarehouses'])->name('order.get_warehouse');
 });
 
 

@@ -69,9 +69,13 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label>Country&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="country" value="{{$res->country}}" placeholder="Enter Country.">
-                                <span id="country_msg" class="text-danger"></span>
+                                <label for="">Select Country&nbsp;<span class="text-danger">*</span></label>
+                                <select class="form-select form-control form-control-sm" name="country" id="country">
+                                    <option value="">Select Country</option>
+                                    @foreach ($country as $key => $val)
+                                            <option value="{{ ucfirst(strtolower($val)) }}" {{ (strtolower($res ->country) == strtolower($val) ? 'selected' : '')}}>{{ ucfirst(strtolower($val)) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group col-md-3">
@@ -86,9 +90,13 @@
                             </div>
 
                             <div class="form-group col-md-3">
-                                <label>City&nbsp;<span class="text-danger">*</span></label>
-                                <input type="text" name="city" value="{{$res->city}}" class="form-control form-control-sm" placeholder="Enter City">
-                                <span id="city_msg" class="text-danger"></span>
+                                <label for="">City&nbsp;<span class="text-danger">*</span></label>
+                                <select class="form-select form-control form-control-sm" name="city">
+                                    <option>Select City</option>
+                                    @foreach ($city as $key => $val)
+                                            <option value="{{ ucfirst(strtolower($val->city)) }}" {{ (strtolower($val->city) == strtolower($res->city) ? 'selected' : '')}}>{{ ucfirst(strtolower($val->city)) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group col-md-3">

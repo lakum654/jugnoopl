@@ -4,7 +4,7 @@
      </div>
      <div class="card-body p-0">
          <div class="table-responsive">
-             <table class="table">
+             <table class="table datatable">
                  <thead>
                      <tr>
                          <th>#</th>
@@ -31,6 +31,14 @@
                      </tr>
                      @endforeach
                  </tbody>
+
+                 <tfoot>
+                    <tr>
+                        <td colspan="9">
+                            {{ $warehouses->links()}}
+                        </td>
+                    </tr>
+                 </tfoot>
              </table>
          </div>
      </div>

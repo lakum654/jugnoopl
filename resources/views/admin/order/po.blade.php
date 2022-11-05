@@ -83,6 +83,13 @@
                                      @endif
                                      @endforeach
                                  </tbody>
+                                 <tfoot>
+                                    <tr>
+                                        <td colspan="9">
+                                            {{ $pos->links()}}
+                                        </td>
+                                    </tr>
+                                 </tfoot>
                              </table>
                          </div>
                      </div>

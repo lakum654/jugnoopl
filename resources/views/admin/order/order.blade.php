@@ -4,7 +4,7 @@
      </div>
      <div class="card-body p-0">
          <div class="table-responsive">
-             <table class="table">
+             <table class="table datatable">
                  <thead>
                      <tr>
                          <th>#</th>
@@ -42,6 +42,14 @@
                      </tr>
                      @endforeach
                  </tbody>
+
+                 <tfoot>
+                    <tr>
+                        <td colspan="9">
+                            {{ $orders->links()}}
+                        </td>
+                    </tr>
+                 </tfoot>
              </table>
          </div>
      </div>
@@ -108,10 +116,10 @@
 
              <div class="modal-body">
                  <h5>Slect Wearhouse</h5>
-                 <select name="wear_house" class="form-control form-select text-dark">
-                     @foreach($warehouses as $w)
+                 <select name="wear_house" class="form-control form-select text-dark" id="warehourse_list">
+                     {{-- @foreach($warehouses as $w)
                      <option value="{{$w->_id}}">{{$w->store_name}}</option>
-                     @endforeach
+                     @endforeach --}}
                  </select>
              </div>
              <div class="modal-footer">
@@ -349,27 +357,40 @@
          var id = $(this).data('id');
          $('#order-no').val(id);
          $('#accept_order').modal('show');
-         //  var url = `{{url('admin/orders')}}/${id}/accepted`;
+        //  var url = `{{url('admin/orders')}}/${id}/accepted`;
 
-         //  $.ajax({
-         //      url: url,
-         //      type: 'GET',
-         //      success: function(res) {
-         //          if (res.status) {
-         //              Swal.fire(
-         //                  `${res.data}`,
-         //                  res.data,
-         //                  `success`,
-         //              ).then((_) => {
-         //                  window.location.reload();
-         //              });
-         //          }
-         //      },
-         //  });
+        //   $.ajax({
+        //       url: url,
+        //       type: 'GET',
+        //       success: function(res) {
+        //           if (res.status) {
+        //               Swal.fire(
+        //                   `${res.data}`,
+        //                   res.data,
+        //                   `success`,
+        //               ).then((_) => {
+        //                   window.location.reload();
+        //               });
+        //           }
+        //       },
+        //   });
+
+        $.ajax({
+              url: `{{ url('admin/order/${id}/get_warehouse') }}`,
+              type: 'GET',
+              success: function(res) {
+                $('#warehourse_list').trigger('change').html('');
+                $('#warehourse_list').html(`<option value=''>Select Warehouse</option>`)
+                    $.each(res,function(value,index) {
+                        $('#warehourse_list').append(`<option value=${index}>${value}</option>`)
+                    })
+              },
+          });
      });
      $('.change_status_two').on('click', function(e) {
          e.preventDefault();
          var id = $(this).data('id');
      });
  </script>
+
  @endpush

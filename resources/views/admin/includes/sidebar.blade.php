@@ -39,10 +39,10 @@
     <!-- <li class="pt-2 pb-1">
             <span class="nav-item-head">Template Pages</span>
           </li> -->
-    <li class="nav-item">
-      <a class="nav-link " href="{{url('admin/dashboard')}}">
-        <i class="mdi mdi-compass-outline menu-icon"></i>
-        <span class="menu-title">Dashboard</span>
+    <li class="nav-item ">
+      <a class="nav-link" href="{{url('admin/dashboard')}}">
+        <i class="fa fa-dashboard menu-icon"></i>
+        <span class="menu-title {{ Request::is('admin/dashboard') ? 'active' : ''}}">Dashboard</span>
       </a>
     </li>
 
@@ -85,16 +85,16 @@
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic">
         <i class="mdi mdi-store menu-icon"></i>
-        <span class="menu-title">Warehouse</span>
+        <span class="menu-title {{ Request::is('admin/warehouse') || Request::is('admin/warehouse/*') ? 'active' : ''}}">Warehouse</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse" id="ui-basic1">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/warehouse') }}">Warehouse List<a>
+            <a class="nav-link {{ Request::is('admin/warehouse') || Request::is('admin/warehouse/create') ? 'active' : ''}}" href="{{ url('admin/warehouse') }}">Warehouse List<a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('admin/warehouse-stock') }}">Warehouse Stock</a>
+            <a class="nav-link {{ Request::is('admin/warehouse-stock') || Request::is('admin/warehouse-stock/*') ? 'active' : ''}}" href="{{ url('admin/warehouse-stock') }}">Warehouse Stock</a>
           </li>
         </ul>
       </div>

@@ -12,7 +12,7 @@
     $perPage = (!empty($_GET['perPage'])) ? (int)$_GET['perPage'] : config('constants.perPage'); ?>
     <div class="col-md-1 is-5 mt-3">
         <select class="form-control-sm form-control" name="perPare" id="perPage">
-            <!-- <option value="10" {{ ($perPage =="10" )?"selected":"" }}>10</option> -->
+             <option value="10" {{ ($perPage =="10" )?"selected":"" }}>10</option>
             <option value="20" {{ ($perPage =="20" )?'selected':''}}>20</option>
             <option value="50" {{ ($perPage =="50" )?'selected':''}}>50</option>
             <option value="100" {{ ($perPage =="100" )?'selected':''}}>100</option>

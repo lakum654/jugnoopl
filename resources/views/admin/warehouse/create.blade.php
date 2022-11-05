@@ -71,7 +71,7 @@
                                 <input type="text" class="form-control form-control-sm" name="store_mobile" placeholder="Mobile">
                                 <span id="store_mobile_msg" class="c-text-danger"></span>
                             </div>
-
+{{--
                             <div class="form-group col-md-3">
                                 <label for="">Country&nbsp;<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control form-control-sm" name="country" value="" placeholder="Enter Country.">
@@ -94,6 +94,40 @@
                                 <input type="text" class="form-select form-control form-control-sm" name="city">
                                 <span id="city_msg" class="c-text-danger"></span>
 
+                            </div> --}}
+
+
+                            <div class="form-group col-md-3">
+                                <label for="">Select Country&nbsp;<span class="text-danger">*</span></label>
+                                <select class="form-select form-control form-control-sm" name="country" id="country">
+                                    <option value="">Select Country</option>
+                                    @foreach ($country as $key => $val)
+                                            <option value="{{ ucfirst(strtolower($val)) }}">{{ ucfirst(strtolower($val)) }}</option>
+                                    @endforeach
+                                </select>
+                                <span id="country_msg" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>State&nbsp;<span class="text-danger">*</span></label>
+                                <select class="form-select form-control form-control-sm" name="state">
+                                    <option value="">-Select Here-</option>
+                                    @foreach(config('global.state') as $state)
+                                    <option value="{{$state}}">{{$state}}</option>
+                                    @endforeach
+                                </select>
+                                <span id="state_msg" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="">City&nbsp;<span class="text-danger">*</span></label>
+                                <select class="form-select form-control form-control-sm" name="city">
+                                    <option>Select City</option>
+                                    @foreach ($city as $key => $val)
+                                            <option value="{{ ucfirst(strtolower($val->city)) }}">{{ ucfirst(strtolower($val->city)) }}</option>
+                                    @endforeach
+                                </select>
+                                <span id="city_msg" class="c-text-danger"></span>
                             </div>
 
                             <div class="form-group col-md-3">

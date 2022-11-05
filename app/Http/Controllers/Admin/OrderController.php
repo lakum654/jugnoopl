@@ -16,9 +16,9 @@ class OrderController extends Controller
     public function index()
     {
 
-        $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->get();
-        $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->limit(10)->get();
-        $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->limit(10)->get();
+        $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->paginate(10);
+        $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->paginate(10);
+        $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->paginate(10);
 
         // return json_encode($data);
 
@@ -69,6 +69,18 @@ class OrderController extends Controller
             }
         } catch (Exception $e) {
             return $this->setResponse(false, $e->getMessage(), 500);
+        }
+    }
+
+    public function getWarehouses($id) {
+
+        try {
+            $order = Order::find($id);
+            $orderCity = $order->shipping_details['city'];
+            $warehouses = Warehouse::where('city',$orderCity)->pluck('_id','store_name');
+            return response()->json($warehouses);
+        } catch(\Exception $e) {
+            return $e->getMessage();
         }
     }
 }
