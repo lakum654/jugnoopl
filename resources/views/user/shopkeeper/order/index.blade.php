@@ -34,6 +34,14 @@
                         </tr>
                         @endforeach
                     </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="8">
+                                {{ $orders->links()}}
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -142,21 +150,24 @@ let url = '{{url("user/sho-order")}}/' + id
                                             <th>Title</th>
                                             <th>SKU</th>
                                             <th>Price</th>
-                                            <th>Unit</th>
-                                            <th>Brand</th>
                                             <th>Category</th>
                                             <th>Sub Category</th>
+                                            <th>Brand</th>
+                                            <th>Qty</th>
+                                            <th>Unit</th>
                                         </tr>`;
             $.each(products, (index, val) => {
+                console.log(val)
                 html += `<tr><td>${++index}</td>
-                          <td><img src="${val.image_url}" class="img"></td>
+                          <td><img src="${val.image}" class="img"></td>
                           <td>${val.title}</td>
                           <td>${val.sku}</td>
                           <td>${val.price}</td>
-                          <td>${val.unit}</td>
+                          <td>${val.category_id}</td>
+                          <td>${val.sub_category}</td>;
                           <td>${val.brand ?? ''}</td>
-                          <td>${val.category}</td>
-                          <td>${val.sub_category}</td></tr>`;
+                          <td>${val.total_qty ?? ''}</td>
+                          <td>${val.unit}</td></tr>`
             })
             html += `</tbody>
                                 </table>

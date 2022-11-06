@@ -29,7 +29,6 @@
                             <td>{{ $list->sku }}</td>
                             <td>{{$list->price}}</td>
                             <td>{{ $list->total_qty}} {{$list->unit}}</td>
-                            </td>
                         </tr>
                         <tr class="p">
                             <td colspan="5" class="hiddenRow">
@@ -63,6 +62,13 @@
                         </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                {{ $lists->links()}}
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

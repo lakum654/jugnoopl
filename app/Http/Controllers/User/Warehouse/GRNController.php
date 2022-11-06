@@ -16,9 +16,9 @@ class GRNController extends Controller
 {
     public function index(Request $request, $type = false)
     {
-        $query = grn::query();
+        $query = grn::paginate(10);
         // $data['lists'] = $query->whereIn('warehouse_id', Auth::user()->warehouses)->get();
-        $data['lists'] = $query->get();
+        $data['lists'] = $query;
 
         return view('user.warehouse.grn.index', $data);
     }

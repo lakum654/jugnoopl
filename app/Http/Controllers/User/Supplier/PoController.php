@@ -15,8 +15,7 @@ class PoController extends Controller
 {
     public function index()
     {
-        $data['lists'] = Po::with(['Supplier', 'Warehouse'])->whereIn('supplier_id', Auth::user()->suppliers)->get();
-
+        $data['lists'] = Po::with(['Supplier', 'Warehouse'])->whereIn('supplier_id', Auth::user()->suppliers)->paginate(10);
         return view('user..supplier.po.index', $data);
     }
 

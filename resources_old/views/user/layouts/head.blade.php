@@ -25,6 +25,7 @@
   <link rel="shortcut icon" href="{{ asset('public/assets')}}/images/favicon.png" />
 
   <link rel="stylesheet" href="{{asset('public/assets')}}/css/custom.css" />
+  <link rel="stylesheet" href="{{asset('public/css/dashboard.css') }}" />
 
 
   <style>

@@ -29,7 +29,7 @@ class PoController extends Controller
                 break;
         }
 
-        $data['lists'] = $query->whereIn('warehouse_id', Auth::user()->warehouses)->get();
+        $data['lists'] = $query->whereIn('warehouse_id', Auth::user()->warehouses)->paginate(10);
 
         return view('user.warehouse.po.index', $data);
     }

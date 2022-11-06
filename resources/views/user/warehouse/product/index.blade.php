@@ -48,6 +48,14 @@
                         </tr>
                         @endforeach
                     </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="9">
+                                {{ $lists->links()}}
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

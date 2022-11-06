@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $data['lists'] = SupplierProduct::with(['Product', 'Supplier'])->whereIn('supplier_id', Auth::user()->suppliers)->get();
+        $data['lists'] = SupplierProduct::with(['Product', 'Supplier'])->whereIn('supplier_id', Auth::user()->suppliers)->paginate(10);
 
         $data['suppliers'] = Supplier::where('users', 'all', [Auth::user()->_id])->get();
 

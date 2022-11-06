@@ -22,7 +22,7 @@ class PoPriceController extends Controller
         if (role() == 'warehouse')
             $query->whereIn('warehouse_id', Auth::user()->warehouses);
 
-        $data['lists'] = $query->with(['po', 'warehouse'])->get();
+        $data['lists'] = $query->with(['po', 'warehouse'])->paginate(10);
 
         return view('user.po_price', $data);
     }

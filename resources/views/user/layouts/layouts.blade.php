@@ -1,4 +1,4 @@
-@include('user/layouts/head')
+@include('user.layouts.head')
 
 <body>
     <div class="container-scroller">

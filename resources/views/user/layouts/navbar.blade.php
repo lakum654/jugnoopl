@@ -96,7 +96,7 @@
                     </ul> -->
         <ul class="navbar-nav navbar-nav-right">
 
-            <li class="nav-item nav-logout d-none d-md-block">
+            <li class="nav-item nav-logout d-none d-md-block m-3">
                 <a href="{{'user/u-profile'}}" class="btn btn-sm btn-success">Profile</a>
             </li>
             <li class="nav-item nav-logout d-none d-md-block">

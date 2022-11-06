@@ -27,7 +27,7 @@ class PoController extends Controller
                 break;
         }
 
-        $data['lists'] = $query->get();
+        $data['lists'] = $query->paginate(10);
 
         return view('admin.po.index', $data);
     }

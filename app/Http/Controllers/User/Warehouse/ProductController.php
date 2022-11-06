@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function index($type = false)
     {
-        $data['lists'] = WarehouseProduct::with(['Product.Category', 'Product.SubCategory'])->where('warehouse_id','all',Auth::user()->warehouses)->get();
+        $data['lists'] = WarehouseProduct::with(['Product.Category', 'Product.SubCategory'])->where('warehouse_id','all',Auth::user()->warehouses)->paginate(10);
 
         $data['warehouses']  = Warehouse::where('status', 1)->get();
         return view('user.warehouse.product.index', $data);

@@ -18,7 +18,7 @@ class PoReportController extends Controller
     {
         $query = WarehouseProduct::query();
 
-        $data['lists'] = $query->with(['WpToPo.PoItems.Po'])->get();
+        $data['lists'] = $query->with(['WpToPo.PoItems.Po'])->paginate(10);
 
         //  pr($data['lists']);die;
         return view('user.po_report', $data);

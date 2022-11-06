@@ -26,7 +26,7 @@ class WarehouseController extends Controller
     public function warehouseStock(Request $request)
     {
         $data['warehouses'] = Warehouse::where('status', 1)->get();
-        $data['lists'] = WarehouseProduct::with(['Product'])->where('warehouse_id', $request->warehouse_id)->get();
+        $data['lists'] = WarehouseProduct::with(['Product'])->where('warehouse_id', $request->warehouse_id)->paginate(10);
 
         return view('admin.warehouse.stock', $data);
     }

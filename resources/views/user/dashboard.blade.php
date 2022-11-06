@@ -1,5 +1,53 @@
 @extends('user.layouts.layouts')
 @section('content')
+<style>
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+</style>
 
 <div class="content-wrapper pb-0">
     <!-- <div class="card shadow mb-4"> -->
@@ -8,10 +56,76 @@
     <div class="page-header flex-wrap">
         <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
             <div class="d-flex align-items-center">
-                <a href="#">
-                    <p class="m-0 pr-3">Dashboard</p>
-                </a>
+                <h5>{{ ucfirst(auth()->user()->role) }} Dashboard</h5>
             </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            @if(auth()->user()->role == 'shopkeeper' || auth()->user()->role == 'warehouse')
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-blue order-card">
+                    <div class="card-block">
+                        <h6 class="m-b-20">Orders</h6>
+                        <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>{{ $totalOrder}}</span></h2>
+                        {{-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> --}}
+                    </div>
+                </div>
+            </div>
+            @endif
+
+        @if(auth()->user()->role == 'warehouse')
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Warehouses</h6>
+                    <h2 class="text-right"><i class="fa fa-home f-left"></i><span>{{$totalWarehouse}}</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Suppliers</h6>
+                    <h2 class="text-right"><i class="fa fa-users f-left"></i><span>{{ $totalSupplier}}</span></h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Supplier Purchase Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-square f-left"></i><span>{{$totalPO}}</span></h2>
+                    {{-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> --}}
+                </div>
+            </div>
+        </div>
+        @endif
+
+        @if(auth()->user()->role == 'supplier')
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Supplier Purchase Orders</h6>
+                    <h2 class="text-right"><i class="fa fa-square f-left"></i><span>{{$totalSupplierPO}}</span></h2>
+                    {{-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-danger order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Supplier Products</h6>
+                    <h2 class="text-right"><i class="fa fa-square f-left"></i><span>{{ $totalSupplierProduct}}</span></h2>
+                    {{-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> --}}
+                </div>
+            </div>
+        </div>
+        @endif
         </div>
     </div>
     <!-- first row starts here -->
@@ -70,6 +184,8 @@
 
         </div>
     </div>
+
+
 </div>
 
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
