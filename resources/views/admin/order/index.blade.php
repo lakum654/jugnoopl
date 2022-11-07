@@ -18,12 +18,15 @@
 
     <nav class="mb-3">
         <div class="nav nav-tabs nav-justified  nav-fill" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-order-tab" data-toggle="tab" data-target="#nav-order" type="button" role="tab" aria-controls="nav-order" aria-selected="true">Orders</button>
-          <button class="nav-link" id="nav-warehouse-tab" data-toggle="tab" data-target="#nav-warehouse" type="button" role="tab" aria-controls="nav-warehouse" aria-selected="false">Warehouses</button>
-          <button class="nav-link" id="nav-po-tab" data-toggle="tab" data-target="#nav-po" type="button" role="tab" aria-controls="nav-po" aria-selected="false">Purchase Orders</button>
+            <button class="nav-link active" id="nav-order-tab" data-toggle="tab" data-target="#nav-order" type="button"
+                role="tab" aria-controls="nav-order" aria-selected="true">Orders</button>
+            <button class="nav-link" id="nav-warehouse-tab" data-toggle="tab" data-target="#nav-warehouse"
+                type="button" role="tab" aria-controls="nav-warehouse" aria-selected="false">Warehouses</button>
+            <button class="nav-link" id="nav-po-tab" data-toggle="tab" data-target="#nav-po" type="button"
+                role="tab" aria-controls="nav-po" aria-selected="false">Purchase Orders</button>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab">
             <div class="row">
                 <div class="col-xl-12 stretch-card grid-margin">
@@ -45,12 +48,11 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 
 </div>
 
 @section('js')
-
 @endsection
 
 @endsection

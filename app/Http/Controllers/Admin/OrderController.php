@@ -19,9 +19,6 @@ class OrderController extends Controller
         $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->paginate(10);
         $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->paginate(10);
         $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->paginate(10);
-
-        // return json_encode($data);
-
         return view('admin.order.index', $data);
     }
 

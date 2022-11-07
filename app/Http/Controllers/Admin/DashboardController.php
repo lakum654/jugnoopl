@@ -19,7 +19,14 @@ class DashboardController extends Controller
         $totalPO = Po::count();
         $totalSupplier = Supplier::count();
 
-        return view('admin.dashboard', compact('totalOrder','totalWarehouse','totalPO','totalSupplier'));
+        $orders = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->paginate(10);
+        $warehouses = Warehouse::orderBy('creared', 'desc')->paginate(10);
+        $pos = Po::with(['Supplier'])->orderBy('created', 'desc')->paginate(10);
+
+        $data = [$totalOrder => 'totalOrder',$totalWarehouse => 'totalWarehouse',
+        $totalPO => 'totalPO', $totalSupplier => 'totalSupplier','orders' => $orders,'warehouses' => $warehouses,'pos' => $pos];
+
+        return view('admin.dashboard', $data);
     }
 
     public function orderDetail($id)
