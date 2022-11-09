@@ -69,8 +69,7 @@ class SupplierProductController extends Controller
 
     public function getSupplierProduct($id)
     {
-        $records = SupplierProduct::with(['product.unit'])->where('supplier_id', $id)->get();
-
+        $records = SupplierProduct::has('product')->with(['product.unit'])->where('supplier_id', $id)->get(
         $supplierProduct = [];
         $products = [];
         $ids = [];
@@ -85,6 +84,7 @@ class SupplierProductController extends Controller
             ];
             $ids[] = $record->product_id;
         }
+
 
         $products = Product::select('_id', 'title')->whereNotIn('_id', $ids)->where('status', 1)->get();
 

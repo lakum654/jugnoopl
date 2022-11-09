@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderDelivery;
 use App\Models\Po;
@@ -19,6 +20,9 @@ class OrderController extends Controller
         $data['orders'] = Order::with(['delivery', 'wearhouse',])->orderBy('created', 'desc')->paginate(10);
         $data['warehouses'] = Warehouse::orderBy('creared', 'desc')->paginate(10);
         $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->paginate(10);
+        $data['city'] = City::all();
+
+
         return view('admin.order.index', $data);
     }
 
@@ -69,15 +73,10 @@ class OrderController extends Controller
         }
     }
 
-    public function getWarehouses($id) {
+    public function getWarehouses(Request $request) {
 
-        try {
-            $order = Order::find($id);
-            $orderCity = $order->shipping_details['city'];
-            $warehouses = Warehouse::where('city',$orderCity)->pluck('_id','store_name');
-            return response()->json($warehouses);
-        } catch(\Exception $e) {
-            return $e->getMessage();
-        }
+        $warehouses = Warehouse::where('city',$request->city)->where('state',$request->state)->pluck('_id','store_name');
+        return response()->json($warehouses);
     }
+
 }
