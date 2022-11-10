@@ -69,7 +69,7 @@ class SupplierProductController extends Controller
 
     public function getSupplierProduct($id)
     {
-        $records = SupplierProduct::has('product')->with(['product.unit'])->where('supplier_id', $id)->get(
+        $records = SupplierProduct::has('product')->with(['product.unit'])->where('supplier_id', $id)->get();
         $supplierProduct = [];
         $products = [];
         $ids = [];

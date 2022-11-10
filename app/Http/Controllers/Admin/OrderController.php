@@ -22,7 +22,6 @@ class OrderController extends Controller
         $data['pos'] = Po::with(['Supplier'])->orderBy('created', 'desc')->paginate(10);
         $data['city'] = City::all();
 
-
         return view('admin.order.index', $data);
     }
 
@@ -75,8 +74,13 @@ class OrderController extends Controller
 
     public function getWarehouses(Request $request) {
 
-        $warehouses = Warehouse::where('city',$request->city)->where('state',$request->state)->pluck('_id','store_name');
-        return response()->json($warehouses);
+        if($request->has('id')) {
+            $order = Order::find($request->id);
+            return response()->json(['city' => ucfirst(strtolower($order['shipping_details']['city'])),'state' => ucfirst(strtolower($order['shipping_details']['state']))]);
+        } else {
+            $warehouses = Warehouse::where('city',$request->city)->where('state',$request->state)->pluck('_id','store_name');
+            return response()->json($warehouses);
+        }
     }
 
 }

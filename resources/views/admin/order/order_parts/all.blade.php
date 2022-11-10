@@ -30,7 +30,7 @@
                          <td>{{$order->order_total}}</td>
                          <td><span class="badge badge-info">{{ucfirst($order->order_status)}}</span></td>
                          <td>{{count(array_unique($order->products, SORT_REGULAR))}}</td>
-                         {{-- <td>2</td> --}}
+                         {{-- <td>0</td> --}}
                          <td>
                              @if($order->order_status == 'pending')
                              <a href="javascript:void(0);" class="btn btn-md btn-success change_status_one" data-id="{{$order->_id}}">Accept</a>

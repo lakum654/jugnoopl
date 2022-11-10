@@ -64,9 +64,22 @@
 
                 <div class="modal-body">
 
-                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="state">Order State</label>
+                                 <input type="text" id="state_text" class="form-control form-control-sm  form-select text-dark" placeholder="Order City">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">Order City</label>
+                                <input type="text" id="city_text" class="form-control form-control-sm  form-select text-dark" placeholder="Order City">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                         <label for="state">Select State</label>
-                        <select name="state" id="state" class="form-control form-select text-dark">
+                        <select name="state" id="state" class="form-control form-control-sm  form-select text-dark">
                             <option value="">Select State</option>
                             @foreach (config('global.state') as $key => $val)
                                 <option value="{{ $val }}">{{ $val }}</option>
@@ -76,7 +89,7 @@
 
                     <div class="form-group">
                         <label for="city">Select City</label>
-                        <select name="city" id="city" class="form-control form-select text-dark">
+                        <select name="city" id="city" class="form-control form-control-sm  form-select text-dark">
                             <option value="">Select City</option>
                             @foreach ($city as $key => $val)
                                 <option value="{{ ucfirst(strtolower($val->city)) }}">{{ ucfirst(strtolower($val->city)) }}
@@ -87,11 +100,13 @@
 
                     <div class="form-group">
                         <label for="warehourse_list">Select Warehouse</label>
-                        <select name="wear_house" class="form-control form-select text-dark" id="warehourse_list">
+                        <select name="wear_house" class="form-control form-control-sm form-select text-dark" id="warehourse_list">
                             @foreach ($warehouses as $w)
                                 <option value="{{ $w->_id }}">{{ $w->store_name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -344,40 +359,25 @@
             });
         });
 
+        var orderId = '';
         $('.change_status_one').on('click', function(e) {
             e.preventDefault();
             var id = $(this).data('id');
+            orderId = id;
             $('#order-no').val(id);
             $('#accept_order').modal('show');
             //  var url = `{{ url('admin/orders') }}/${id}/accepted`;
 
-            //   $.ajax({
-            //       url: url,
-            //       type: 'GET',
-            //       success: function(res) {
-            //           if (res.status) {
-            //               Swal.fire(
-            //                   `${res.data}`,
-            //                   res.data,
-            //                   `success`,
-            //               ).then((_) => {
-            //                   window.location.reload();
-            //               });
-            //           }
-            //       },
-            //   });
-
             $.ajax({
-                url: `{{ url('admin/order/${id}/get_warehouse') }}`,
-                type: 'GET',
-                success: function(res) {
-                    $('#warehourse_list').trigger('change').html('');
-                    $('#warehourse_list').html(`<option value=''>Select Warehouse</option>`)
-                    $.each(res, function(value, index) {
-                        $('#warehourse_list').append(`<option value=${index}>${value}</option>`)
-                    })
-                },
-            });
+                    url: `{{ url('admin/order/get_warehouse') }}`,
+                    type: 'POST',
+                    data: {_token:"{{ @csrf_token() }}",id:orderId},
+                    success: function(res) {
+                        console.log(res);
+                        $('#city_text').val(res.city);
+                        $('#state_text').val(res.state);
+                    },
+                });
         });
         $('.change_status_two').on('click', function(e) {
             e.preventDefault();

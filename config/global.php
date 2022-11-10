@@ -3,6 +3,7 @@ return [
     'perPage' => 20,
 
     'state' => [
+        'Delhi',
         'Arunachal Pradesh',
         'Arunachal Pradesh',
         'Assam',
