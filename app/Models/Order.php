@@ -21,4 +21,7 @@ class Order extends BaseModel
         return $this->hasMany(OrderDelivery::class, 'order_id', '_id');
     }
 
+    public function shopkeeper() {
+        return $this->hasOne(User::class,'_id','shokeeper_id');
+    }
 }

@@ -84,6 +84,13 @@
 
     @if(role() =='warehouse')
 
+    <li class="nav-item {{ Request::is('user/orders_list') || Request::is('user/orders_list/*') ? 'active' : ''}}">
+        <a class="nav-link" href="{{ url('user/orders_list') }}">
+          <i class="mdi mdi-square menu-icon"></i>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+
     <li class="nav-item">
       <a class="nav-link" href="{{ url('user/warehouse-product') }}">
         <i class="mdi mdi-buffer menu-icon"></i>

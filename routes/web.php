@@ -122,7 +122,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::post('orders/status', [AdminOrderController::class, 'changeStatus']);
     Route::post('orders', [AdminOrderController::class, 'startDelivery']);
     Route::get('orders_list',[AdminOrderController::class,'index'])->name('order.index');
+    Route::get('orders_list/{warehouseId}/view',[AdminOrderController::class,'view'])->name('order.view');
     Route::post('order/get_warehouse',[AdminOrderController::class,'getWarehouses'])->name('order.get_warehouse');
+
 });
 
 
@@ -168,6 +170,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
     });
     //end warehouse
 
+    Route::get('orders_list',[UserDashboard::class,'warehouseUserOrders']);
 
     //start for shopkeeper
     Route::controller(shoOrder::class)->group(function () {

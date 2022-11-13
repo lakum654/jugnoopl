@@ -10,6 +10,7 @@
                         <th>#</th>
                         <th>Order Number</th>
                         <th>Wearhouse</th>
+                        {{-- <th>Shopkeeper</th> --}}
                         <th>Order Date</th>
                         <th>Payment Type</th>
                         <th>Order Total</th>
@@ -26,7 +27,8 @@
                     <tr>
                         <td>{{++$key}}</td>
                         <td>{{$order->order_no}}</td>
-                        <td>{{$order->wearhouse->store_name ?? ''}}</td>
+                        <td>{{$order->wearhouse->store_name ?? '-'}}</td>
+                        {{-- <td>{{$order->shopkeeper->name ?? '-'}}</td> --}}
                         <td>{{$order->dFormat((int)$order->created)}}</td>
                         <td>{{$order->payment_type}}</td>
                         <td>{{$order->order_total}}</td>

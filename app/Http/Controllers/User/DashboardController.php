@@ -33,12 +33,24 @@ class DashboardController extends Controller
             $data['totalSupplierPO'] = 0;
             $data['totalSupplierProduct'] = 0;
         }
-
-        $data['orders'] = [];
         return view('user.dashboard', $data);
     }
 
 
+    public function warehouseUserOrders() {
+        $data['orders'] = [];
+        $data = [];
+        if (Auth::user()->role == 'warehouse') {
+            foreach (Auth::user()->warehouses as $w) {
+                $orders = Order::where('warehouse_id', $w)->orderBy('created', 'desc')->get();
+                foreach ($orders as $o) {
+                    $data['orders'][] = $o;
+                }
+            }
+        }
+
+    return view('user.order.index',$data);
+    }
     public function login2()
     {
         return view('login');
