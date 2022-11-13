@@ -86,7 +86,7 @@
 
                             @if(!empty($res->image))
                             <div class="form-group col-md-4 mt-3">
-                                {{-- <img src="{{imgPath('product',$res->image)}}" id="imgPreview" class="img"/> --}}
+                                <img src="{{imgPath('product',$res->image)}}" id="imgPreview" class="img"/>
                             </div>
                             @endif
 

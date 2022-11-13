@@ -198,7 +198,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label>Order Number</label>
-                            <select class="form-control form-control-sm select2" name="o_ids[]" multiple="multiple" id="o_ids">
+                            <select class="form-control form-control-sm select2" name="o_ids[]" multiple="multiple" id="o_ids" required>
                                 <option value="">Select</option>
                                 @foreach($uncompletedOrders as $key => $v)
                                 <option value="{{$v->_id}}">{{$v->order_no}}</option>
@@ -216,14 +216,14 @@
 
                         <div class="form-group col-md-6">
                             <label>Driver Name</label>
-                            <input type="text" class="form-control form-control-sm" name="driver_name" placeholder="Enter Driver Name">
+                            <input type="text" class="form-control form-control-sm" name="driver_name" placeholder="Enter Driver Name" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Driver Mobile No.</label>
-                            <input type="number" name="driver_mobile" class="form-control form-control-sm" placeholder="Enter Mobile No">
+                            <input type="number" name="driver_mobile" class="form-control form-control-sm" placeholder="Enter Mobile No" required>
                         </div>
 
                         <div class="form-group col-md-6">
@@ -247,12 +247,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Bill Amount</label>
-                            <input type="number" name="bill_amount" class="form-control form-control-sm" placeholder="Enter Bill Amount">
+                            <input type="number" name="bill_amount" class="form-control form-control-sm" placeholder="Enter Bill Amount" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label>Received By</label>
-                            <input type="text" class="form-control form-control-sm" name="received_by" placeholder="Received By">
+                            <input type="text" class="form-control form-control-sm" name="received_by" placeholder="Received By" required>
                         </div>
                     </div>
 
@@ -276,6 +276,15 @@
 
 @push('script')
 <script>
+
+@if(session()->has('success'))
+    Swal.fire('success','Challan Generated Successfully.','success');
+@endif
+
+
+@if(session()->has('error'))
+    Swal.fire('error','Challan Generated Successfully.','error');
+@endif
 
 $(document).on('click', '.order_challan', function(e) {
         e.preventDefault();

@@ -68,10 +68,15 @@ class DashboardController extends Controller
         unset($inputs['_token']);
         unset($inputs['o_ids']);
         $inputs['warehouse_user_id'] = auth()->user()->_id;
-
-        // ModelsWarehouseChallan::create($inputs);
+        $data = ModelsWarehouseChallan::create($inputs);
+        $last = ModelsWarehouseChallan::count();
+        $challan_no = str_pad($last,12,0);
+        ModelsWarehouseChallan::find($data->_id)->update(['challan_no' => ($challan_no+1)]);
         // return ModelsWarehouseChallan::first()->warehouse_user;
-        return back();
+        if (!$data) {
+            return back()->with(['error' => 'Challan Generated Successfully!']);
+        }
+        return back()->with(['success' => 'Challan Generated Successfully!']);
     }
     public function login2()
     {
