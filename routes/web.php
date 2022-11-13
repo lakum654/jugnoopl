@@ -134,6 +134,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
     Route::resource('u-dashboard', UserDashboard::class);
     Route::resource('supp-product', SuppProduct::class);
     Route::resource('u-profile', UProfile::class);
+    Route::post('warehouse/challan', [UserDashboard::class,'saveChallan']);
 
     //for only supplier
     Route::resource('supplier-po', SupplierPO::class);
@@ -145,6 +146,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
         Route::get('order-detail/{id}', 'orderDetail');
         Route::get('warehouse-detail/{id}', 'warehouseDetail');
         Route::get('po-detail/{id}', 'poDetail');
+
     });
 
     Route::post('orders', [AdminOrderController::class, 'startDelivery']);
@@ -180,7 +182,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
 
 
     Route::resource('po-price', POPrice::class);
-
     Route::resource('po-report', PoReport::class);
 });
 

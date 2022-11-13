@@ -60,6 +60,13 @@
                                 <span id="unit_id_msg" class="c-text-danger"></span>
                             </div>
 
+
+                            <div class="form-group col-md-4">
+                                <label>Weight<span class="text-danger">*</span></label>
+                                <input type="text" name="weight" id="weight" class="form-control form-control-sm" placeholder="Enter Weight" value="{{ $res->weight}}">
+                                <span id="weight_msg" class="c-text-danger"></span>
+                            </div>
+
                             <div class="form-group col-md-4">
                                 <label>Brand<span class="text-danger">*</span></label>
                                 <select class="form-control form-control-sm" id="brand_id" name="brand_id">
@@ -72,14 +79,14 @@
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label>Image</label>
-                                <input type="file" name="image" accept="image/*" id="imgInp" class="form-control form-control-sm">
+                                <label>Images (Single / Multiple) </label>
+                                <input type="file" name="image[]" accept="image/*" id="imgInp" class="form-control form-control-sm" multiple>
                                 <span id="image_msg" class="c-text-danger"></span>
                             </div>
 
                             @if(!empty($res->image))
                             <div class="form-group col-md-4 mt-3">
-                                <img src="{{imgPath('product',$res->image)}}" id="imgPreview" class="img"/>
+                                {{-- <img src="{{imgPath('product',$res->image)}}" id="imgPreview" class="img"/> --}}
                             </div>
                             @endif
 
@@ -90,6 +97,20 @@
                                     <option value="0" {{ (isset($res->status) && $res->status ==0)?'selected':''}}>Inactive</option>
                                 </select>
                                 <span id="status_msg" class="c-text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <label for="images">More Images</label>
+
+                                @if(!empty($res->images))
+                                <div class="row">
+                                    @foreach ($res->images as $k => $m)
+                                        <div class="col-1">
+                                            <img src="{{imgPath('product',$m)}}" alt="Not Found" width="100px" height="100px" style="border:1px solid black;">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                @endif
                             </div>
                         </div>
 

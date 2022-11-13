@@ -60,6 +60,12 @@
                             </div>
 
                             <div class="form-group col-md-4">
+                                <label>Weight<span class="text-danger">*</span></label>
+                                <input type="text" name="weight" id="weight" class="form-control form-control-sm" placeholder="Enter Weight">
+                                <span id="weight_msg" class="c-text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-4">
                                 <label>Brand<span class="text-danger">*</span></label>
                                 <select class="form-control form-control-sm" id="brand_id" name="brand_id">
                                     <option value="">Select</option>
@@ -71,9 +77,10 @@
                                 <span id="brand_id_msg" class="c-text-danger"></span>
                             </div>
 
+
                             <div class="form-group col-md-4">
-                                <label>Image</label>
-                                <input type="file" name="image" class="form-control form-control-sm">
+                                <label>Images (Single / Multiple) </label>
+                                <input type="file" name="image[]" class="form-control form-control-sm" multiple>
                                 <span id="image_msg" class="c-text-danger"></span>
                             </div>
 

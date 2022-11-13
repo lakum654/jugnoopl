@@ -59,11 +59,21 @@ class ProductController extends Controller
         $save->sub_category_id    = $request->sub_category;
         $save->brand_id        = $request->brand_id;
         $save->unit_id         = $request->unit_id;
+        $save->weight          = $request->weight;
         $save->status          = (int)$request->status;
 
 
-        if (!empty($request->file('image')))
-            $save->image     = singleFile($request->file('image'), 'product');
+
+        $images = [];
+        if (!empty($request->file('image'))) {
+            $images = multipleFile($request->file('image'),'product');
+            $save->image = $images[0];
+            // For More Images
+            $save->images = $images;
+        }
+
+        // if (!empty($request->file('image')))
+        //     $save->image     = singleFile($request->file('image'), 'product');
 
         if (!$save->save())
             return response(['status' => 'error', 'msg' => 'Product not Created']);
@@ -81,13 +91,20 @@ class ProductController extends Controller
         $save->sub_category_id = $request->sub_category;
         $save->brand_id        = $request->brand_id;
         $save->unit_id         = $request->unit_id;
+        $save->weight          = $request->weight;
         $save->status          = (int)$request->status;
 
-        if (!empty($request->file('image')))
-            $save->image     = singleFile($request->file('image'), 'product');
 
-        if (!$save->save())
+        $images = [];
+        if (!empty($request->file('image'))) {
+            $images = multipleFile($request->file('image'),'product');
+            $save->image = $images[0];
+            $save->images = $images;
+        }
+        if (!$save->save()) {
             return response(['status' => 'error', 'msg' => 'Product not Updated']);
+        }
+
 
         return response(['status' => 'success', 'msg' => 'Product Updated Successfully!']);
     }

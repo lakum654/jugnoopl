@@ -95,6 +95,7 @@
                                     <td>{{$order->order_status}}</td>
                                     <td>{{count(array_unique($order->products, SORT_REGULAR))}}</td>
                                     <td>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-info order_challan" data-id="{{$order->_id}}"><i class="mdi mdi-file"></i></a>
                                         @if($order->order_status == 'pending')
                                         <a href="javascript:void(0);" class="btn btn-md btn-success change_status_one" data-id="{{$order->_id}}">Accept</a>
                                         <a href="javascript:void(0);" class="btn btn-md btn-danger change_status_two" data-id="{{$order->_id}}">Reject</a>
@@ -171,8 +172,118 @@
         </form>
     </div>
 </div>
+
+@push('modal')
+<!-- Modal -->
+<div class="modal fade" id="addChallanModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 40% !important;" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Generate </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="cover-loader d-none">
+                <div class="loader"></div>
+            </div>
+
+            <div class="modal-body h-body">
+
+                <form id="save-challan" action="{{url('user/warehouse/challan')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>Order Number</label>
+                            <select class="form-control form-control-sm select2" name="o_ids[]" multiple="multiple" id="o_ids">
+                                <option value="">Select</option>
+                                @foreach($uncompletedOrders as $key => $v)
+                                <option value="{{$v->_id}}">{{$v->order_no}}</option>
+                                @endforeach
+                            </select>
+                            <!-- <input type="text" class="form-control form-control-sm" name="po_no" placeholder="Enter PO Number"> -->
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Receiving Date</label>
+                            <input type="date" name="receiving_date" class="form-control form-control-sm">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Driver Name</label>
+                            <input type="text" class="form-control form-control-sm" name="driver_name" placeholder="Enter Driver Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Driver Mobile No.</label>
+                            <input type="number" name="driver_mobile" class="form-control form-control-sm" placeholder="Enter Mobile No">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Vehicle No</label>
+                            <input type="text" class="form-control form-control-sm" name="vehicle_no" placeholder="Enter Vehicle No">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Type of Supply</label>
+                            <input type="text" name="type_of_supply" class="form-control form-control-sm" placeholder="Supply Type">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Challen No./Bill No</label>
+                            <input type="file" class="form-control form-control-sm" name="channel_no">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Bill Amount</label>
+                            <input type="number" name="bill_amount" class="form-control form-control-sm" placeholder="Enter Bill Amount">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Received By</label>
+                            <input type="text" class="form-control form-control-sm" name="received_by" placeholder="Received By">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea name="remarks" class="form-control form-control-sm" rows="2" placeholder="Enter Remark"></textarea>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@endpush
+
+
 @push('script')
 <script>
+
+$(document).on('click', '.order_challan', function(e) {
+        e.preventDefault();
+        $("#o_ids").select2({});
+        $('.select2-container').css("width", "100%");
+        $('#addChallanModel').modal('show');
+    });
+
     $(document).on('click', '.order-view', function() {
         let id = $(this).attr('_id');
 
@@ -393,34 +504,6 @@
         }).catch((error) => {
             console.log(error);
         });
-    });
-
-    $('.change_status_one').on('click', function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        $('#order-no').val(id);
-        $('#accept_order').modal('show');
-        //  var url = `{{url('admin/orders')}}/${id}/accepted`;
-
-        //  $.ajax({
-        //      url: url,
-        //      type: 'GET',
-        //      success: function(res) {
-        //          if (res.status) {
-        //              Swal.fire(
-        //                  `${res.data}`,
-        //                  res.data,
-        //                  `success`,
-        //              ).then((_) => {
-        //                  window.location.reload();
-        //              });
-        //          }
-        //      },
-        //  });
-    });
-    $('.change_status_two').on('click', function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
     });
 </script>
 @endpush

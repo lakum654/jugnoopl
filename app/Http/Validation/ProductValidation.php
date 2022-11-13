@@ -23,6 +23,7 @@ class ProductValidation extends FormRequest
             'sub_category'  => 'required',
             'brand_id'      => 'required',
             'unit_id'       => 'required',
+            'weight'       =>  'required',
             'status'        => 'required',
 
         ];
