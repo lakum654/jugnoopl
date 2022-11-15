@@ -59,6 +59,11 @@ class UserController extends Controller
         if (!$save->save())
             return response(['status' => 'error', 'msg' => 'User not Created']);
 
+
+        $lastCount = User::count() + 1;
+        $user_no = str_pad($lastCount,8,0);
+        User::find($save->_id)->update(['user_no' => $user_no]);
+
         return response(['status' => 'success', 'msg' => 'User Created Successfully!']);
     }
 

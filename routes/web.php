@@ -42,7 +42,7 @@ use App\Http\Controllers\Shopkeeper\ProfileController as ShoProfile;
 use App\Http\Controllers\User\Warehouse\PoController as WarehousePO;
 use App\Http\Controllers\User\Shopkeeper\OrderController as shoOrder;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-
+use App\Http\Controllers\Admin\ProductPriceController;
 //for Shopkeeper
 use App\Http\Controllers\User\Supplier\ProductController as SuppProduct;
 use App\Http\Controllers\Supplier\DashboardController as SupplierDashboard;
@@ -252,4 +252,14 @@ Route::get('/clear-cache', function () {
 Route::get('/optimize', function () {
     Artisan::call('optimize');
     return "Cache/Route is cleared";
+});
+
+
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    Route::get('product_price',[ProductPriceController::class,'index']);
+    Route::get('product_price/create',[ProductPriceController::class,'create']);
+    Route::post('product_price/store',[ProductPriceController::class,'store'])->name('product_price.store');
+    Route::get('product_price/delete/{id}',[ProductPriceController::class,'delete'])->name('product_price.delete');
+    Route::get('product_price/{id}/edit',[ProductPriceController::class,'edit'])->name('product_price.edit');
+    Route::post('product_price/{id}',[ProductPriceController::class,'update'])->name('product_price.update');
 });

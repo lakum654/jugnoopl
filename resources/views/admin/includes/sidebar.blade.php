@@ -109,6 +109,13 @@
       </a>
     </li>
 
+    <li class="nav-item {{ Request::is('admin/product_price') || Request::is('admin/product_price/create') ? 'active' : ''}}">
+        <a class="nav-link" href="{{ url('admin/product_price') }}">
+          <i class="mdi mdi-buffer menu-icon"></i>
+          <span class="menu-title">Product Price</span>
+        </a>
+      </li>
+
     <li class="nav-item">
       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <i class="mdi mdi-arrow-expand-all menu-icon"></i>
