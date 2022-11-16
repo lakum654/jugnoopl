@@ -10,8 +10,15 @@ use Illuminate\Http\Request;
 
 class ProductPriceController extends Controller
 {
-    public function index() {
-        $data['products_prices'] = ProductPrice::with(['product','warehouse'])->paginate(10);
+    public function index(Request $request) {
+        $products = ProductPrice::with(['product','warehouse']);
+
+        if($request->warehouse_id && $request->warehouse_id != null) {
+            $products->where('warehouse_id',$request->warehouse_id);
+        }
+
+        $data['products_prices'] = $products->paginate(10);
+        $data['warehouses'] = Warehouse::get();
         return view('admin.product_price.index',$data);
     }
 
@@ -52,7 +59,7 @@ class ProductPriceController extends Controller
         return back()->with(['success' => 'Product Price Updated Successfully.']);
     }
     public function delete($id) {
-        $data = ProductPrice::find($id)->delete();
+        $data = ProductPrice::find($id)->forceDelete();
         return back()->with(['success' => 'Product Price Deleted Successfully.']);
     }
 }

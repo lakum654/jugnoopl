@@ -9,6 +9,17 @@
         <x-page-head title="Product Price List" url="admin/product_price/create" type="list" :addons=$addons />
 
         <div class="card-body p-2">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <select class="form-control form-control-sm" id="selectWarehouse">
+                        <option value="">Select Warehouse</option>
+                        <option value="All">All</option>
+                        @foreach($warehouses as $list)
+                        <option value="{{ $list->_id }}" {{ (app('request')->input('warehouse_id')==$list->_id)?"selected":"" }}>{{ ucwords($list->store_name)}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -53,6 +64,15 @@
         @if(session()->has('success'))
             Swal.fire('success',"{{ session()->get('success') }}",'success');
         @endif
+    })
+
+    $('#selectWarehouse').on('load change', function() {
+            var warehouse_id = $('#selectWarehouse').val();
+            if(warehouse_id == 'All') {
+                window.location.href = `/admin/product_price`;
+            } else {
+                window.location.href = `/admin/product_price?warehouse_id=${warehouse_id}`;
+            }
     })
 </script>
 @endpush

@@ -75,4 +75,9 @@ class PoController extends Controller
 
         return response(['status' => 'success', 'msg' => 'PO Created Successfully!']);
     }
+
+    public function show($id) {
+        $PO = Po::with(['Supplier','Warehouse','Items'])->find($id);
+        return view('admin.po.view', compact('PO'));
+    }
 }

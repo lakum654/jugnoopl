@@ -18,6 +18,18 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group col-md-3">
+                    <select class="form-control form-control-sm" id="check_stock">
+                        <option value="">Select Warehouse</option>
+                        <option value="All">All</option>
+                        <option value="100">< 100</option>
+                        <option value="75"> < 75</option>
+                        <option value="50"> < 50</option>
+                        <option value="25"> < 25</option>
+                    </select>
+                </div>
+
             </div>
 
             <div class="table-responsive">
@@ -112,6 +124,17 @@
         //for warehosue select filter
         $('#selectWarehouse').on('load change', function() {
             window.location.href = window.location.origin + '/admin/warehouse-stock' + '?warehouse_id=' + $(this).val();
+        })
+
+        $('#check_stock').on('load change', function() {
+            var warehouse_id = $('#selectWarehouse').val();
+            var check_qty = $('#check_stock').val();
+            if(check_qty == 'All') {
+                window.location.href = `/admin/warehouse-stock`;
+            } else {
+                window.location.href = `/admin/warehouse-stock?warehouse_id=${warehouse_id}&check_qty=${check_qty}`;
+            }
+
         })
 
     })

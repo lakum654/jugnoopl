@@ -17,13 +17,7 @@
                             <th>Supplier Name</th>
                             <th>Store Name</th>
                             <th>Created</th>
-                            <!-- <th>Action</th> -->
-                            <!-- <th>Category</th>
-                            <th>Sub Category</th>
-                            <th>Unit</th>
-                            <th>Brand</th>
-                            <th>Status</th>
-                            <th>Action</th> -->
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,23 +28,14 @@
                             <td>{{ !empty($list->Supplier->store_name)? $list->Supplier->store_name:'' }}</td>
                             <td>{{ !empty($list->Warehouse->store_name)?$list->Warehouse->store_name:'' }}</td>
                             <td>{{ $list->dformat($list->created)}}</td>
-                            <!-- <td><a href="{{ url('supplier/s-po/'.$list->_id.'/edit') }}" class="btn btn-sm btn-outline-info"><span class="mdi mdi-pencil-box-outline"></span></a></td> -->
-                            <!-- <td>{{ !empty($list->Category->name) ? ucwords($list->Category->name): ''}}</td>
-                            <td>{{ !empty($list->SubCategory->name) ? ucwords($list->SubCategory->name): ''}}</td>
-                            <td>{{ !empty($list->Unit->unit) ? ucwords($list->Unit->unit): ''}}</td>
-                            <td>{{ !empty($list->Brand->brand) ? ucwords($list->Brand->brand): ''}}</td>
-                            <td>{!!$list->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-warning">In Active</span>'!!}</td>
-                            <td>
-                                <a href="{{ url('admin/product/'.$list->_id.'/edit') }}" class="btn btn-sm btn-outline-info"><span class="mdi mdi-pencil-box-outline"></span></a>
-                                <a onclick="return confirm('Are you sure to detele this?')" href="" class="btn btn-sm btn-outline-danger"><span class="mdi mdi-delete"></span></a>
-                            </td> -->
+                            <td><a href="{{ route('po.in_progress',$list->_id) }}" class="btn btn-sm btn-outline-info"><span class="mdi mdi-eye"></span></a></td>
                         </tr>
                         @endforeach
                     </tbody>
 
                     <tfoot>
                         <tr>
-                            <td colspan="5">
+                            <td colspan="6">
                                 {{ $lists->links()}}
                             </td>
                         </tr>
