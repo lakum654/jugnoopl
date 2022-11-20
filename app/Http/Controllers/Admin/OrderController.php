@@ -91,4 +91,26 @@ class OrderController extends Controller
         return view('admin.order.view',compact('warehouse','orders'));
     }
 
+
+    public function reportIndex() {
+        $orderData = Order::with('wearhouse');
+
+        if($warehouse_id = request()->query('warehouse_id')) {
+            if($warehouse_id != 'All') {
+                $orderData->where('warehouse_id',$warehouse_id);
+            }
+
+        }
+
+        if($status = request()->query('status')) {
+            if($status != 'All'){
+                $orderData->where('order_status',$status);
+            }
+        }
+
+        $orderData = $orderData->paginate(10);
+        $data['orderData'] = $orderData;
+        $data['warehouse'] = Warehouse::all();
+        return view('admin.reports.order.index',$data);
+    }
 }

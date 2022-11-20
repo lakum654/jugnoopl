@@ -28,6 +28,7 @@
                             <th>Product</th>
                             <th>Warehouse</th>
                             <th>Selling Price</th>
+                            <td>Status</td>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,9 +39,16 @@
                                         <td>{{ $val->product->title}}</td>
                                         <td>{{ $val->warehouse->store_name}}</td>
                                         <td>{{ number_format($val->price,2) }}</td>
+                                        <td><span class="badge badge-info">{{($val->status == 1) ? 'Active' : 'Deactive'}}</span></td>
                                         <td>
                                             <a href="{{ route('product_price.edit',$val->_id) }}"><i class="fa fa-pencil"></i></a>
                                             <a href="{{ route('product_price.delete',$val->_id) }}"><i class="fa fa-trash"></i></a>
+
+                                            @if($val->status == 1)
+                                                <a href="{{ route('product_price.changeStatus',$val->_id) }}" class="btn btn-sm btn-danger">Deactive</a>
+                                            @else
+                                                <a href="{{ route('product_price.changeStatus',$val->_id) }}" class="btn btn-sm btn-success">Active</a>
+                                            @endif
                                         </td>
 
                                     </tr>

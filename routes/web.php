@@ -264,6 +264,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('product_price/delete/{id}',[ProductPriceController::class,'delete'])->name('product_price.delete');
     Route::get('product_price/{id}/edit',[ProductPriceController::class,'edit'])->name('product_price.edit');
     Route::post('product_price/{id}',[ProductPriceController::class,'update'])->name('product_price.update');
+    Route::get('product_price/{id}',[ProductPriceController::class,'changeStatus'])->name('product_price.changeStatus');
 
     Route::get('po/in_progress/{orderId}',[AdminPOController::class,'show'])->name('po.in_progress');
+
+    // Routes For Order Reports
+    Route::get('order_report',[AdminOrderController::class,'reportIndex']);
 });

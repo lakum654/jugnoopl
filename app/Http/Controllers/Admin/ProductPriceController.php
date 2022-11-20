@@ -62,4 +62,16 @@ class ProductPriceController extends Controller
         $data = ProductPrice::find($id)->forceDelete();
         return back()->with(['success' => 'Product Price Deleted Successfully.']);
     }
+
+    public function changeStatus($id) {
+        $data = ProductPrice::find($id);
+
+        if($data->status == 1) {
+            $data->update(['status' => 0]);
+        } else {
+            $data->update(['status' => 1]);
+        }
+
+        return back()->with(['success' => 'Product Price Status Change Successfully.']);
+    }
 }
