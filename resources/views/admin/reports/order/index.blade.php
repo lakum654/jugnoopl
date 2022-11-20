@@ -134,7 +134,7 @@
             var warehouse_id = $('#warehouse_id').val();
             var status = $('#status').val();
             if(status == 'All') {
-                window.location.href = `/admin/order_report`;
+                window.location.href = window.location.origin + `/admin/order_report/?warehouse_id=`+$(this).val();
             } else {
                 window.location.href = `/admin/order_report?warehouse_id=${warehouse_id}&status=${status}`;
             }

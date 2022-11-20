@@ -62,6 +62,11 @@ class DashboardController extends Controller
     return view('user.order.index',$data);
     }
 
+    public function challan_index() {
+        $data['challan_list'] = ModelsWarehouseChallan::where('warehouse_user_id',auth()->user()->_id)->get();
+        return view('user.order.challan_index',$data);
+    }
+
     public function saveChallan(Request $request) {
         $inputs = $request->all();
         $inputs['orders'] = $inputs['o_ids'];

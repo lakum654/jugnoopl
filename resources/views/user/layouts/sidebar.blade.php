@@ -133,6 +133,13 @@
       </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{url('user/warehouse/challan_list')}}">
+          <i class="mdi mdi-file menu-icon"></i>
+          <span class="menu-title">Challan</span>
+        </a>
+      </li>
+
     @endif
 
     @if(role() =='shopkeeper')
